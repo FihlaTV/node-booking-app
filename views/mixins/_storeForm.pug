@@ -1,0 +1,17 @@
+mixin storeForm(store = {})
+	form(action=`/add/${store._id || ''}` method="POST" class="card")
+		
+		label(for="daterange") Choose a date from calendar:
+		input(name="daterange" type='text' id="cal")
+		label(for="date") Date
+		input(name="date" type='text' id="calc" value=store.date readonly)
+
+		- const slots = ['12:00', '14:00', '16:00', '18:00', '20:00']
+		- const time = store.slots || []
+		
+		ul.tags
+			each slot in slots
+				.tag.tag__choice
+					input(type="checkbox" id=slot value=slot name="slots" checked=(time.includes(choice)))
+					label(for=slot) #{slot}
+		input(type="submit" value="Save" class="button")
